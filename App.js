@@ -1,13 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+
+import WelcomeScreen from './app/screens/WelcomeScreen';
+import AddressInputScreen1 from './app/screens/AddressInputScreen1';
+import AddressInputScreen2 from './app/screens/AddressInputScreen2';
+
+const Stack = createStackNavigator();
+const StackNavigator = () => (
+  <Stack.Navigator  
+    screenOptions={{
+      headerShown: false
+    }}
+  >
+    <Stack.Screen name="Welcome" component={WelcomeScreen} />
+    <Stack.Screen name="AddressInput1" component={AddressInputScreen1} />
+    <Stack.Screen name="AddressInput2" component={AddressInputScreen2} />
+  </Stack.Navigator>
+)
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
   );
 }
 
