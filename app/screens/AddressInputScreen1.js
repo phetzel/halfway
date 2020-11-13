@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Location from 'expo-location';
 
@@ -6,10 +6,13 @@ import AppButton from '../components/AppButton';
 import AppText from '../components/AppText';
 import AppTextInput from '../components/AppTextInput';
 import ErrorMessage from '../components/ErrorMessage';
+import FilterContext from '../context/filter_context';
 import key from '../key/key';
 import Screen from '../components/Screen';
 
 const AddressInputScreen1 = ({ navigation }) => {
+    const { filter, setFilter } = useContext(FilterContext);
+
     const [addy1, setAddy1] = useState();
     const [error, setError] = useState();
 
@@ -20,10 +23,11 @@ const AddressInputScreen1 = ({ navigation }) => {
         await Location.getLastKnownPositionAsync({}).then(({ coords }) => {
             const { latitude, longitude } = coords;
 
-            navigation.navigate(
-                "AddressInput2", 
-                { latitude1: latitude, longitude1: longitude, current: false }
-            )
+            let obj = Object.assign({}, filter);
+            obj['addy1'] = {latitude: latitude, longitude: longitude, current: false};
+            setFilter(obj);
+
+            navigation.navigate("AddressInput2");
         })
     }
 
@@ -37,11 +41,12 @@ const AddressInputScreen1 = ({ navigation }) => {
                 .then(data => {
                     if (data.results[0]) {
                         const { lat, lng } = data.results[0].geometry.location;
-    
-                        navigation.navigate(
-                            "AddressInput2", 
-                            { latitude1: lat, longitude1: lng, current: true }
-                        )
+                        
+                        let obj = Object.assign({}, filter);
+                        obj['addy1'] = {latitude: lat, longitude: lng, current: true};
+                        setFilter(obj);
+
+                        navigation.navigate("AddressInput2");
                     } else {
                         setError('Not a Valid Address');
                     }

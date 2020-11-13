@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Location from 'expo-location';
 
@@ -6,11 +6,13 @@ import AppButton from '../components/AppButton';
 import AppText from '../components/AppText';
 import AppTextInput from '../components/AppTextInput';
 import ErrorMessage from '../components/ErrorMessage';
+import FilterContext from '../context/filter_context';
 import key from '../key/key';
 import Screen from '../components/Screen';
 
 const AddressInputScreen2 = ({ navigation, route }) => {
-    const { latitude1, longitude1 } = route.params;
+    const { filter, setFilter } = useContext(FilterContext);
+
     const [addy2, setAddy2] = useState();
     const [error, setError] = useState();
 
@@ -20,16 +22,12 @@ const AddressInputScreen2 = ({ navigation, route }) => {
 
         await Location.getLastKnownPositionAsync({}).then(({ coords }) => {
             const { latitude, longitude } = coords;
+
+            let obj = Object.assign({}, filter);
+            obj['addy2'] = {latitude: latitude, longitude: longitude };
+            setFilter(obj);
             
-            navigation.navigate(
-                "Results", 
-                { 
-                    addy1: 
-                        { latitude: latitude1, longitude: longitude1},
-                    addy2: 
-                        { latitude: latitude, longitude: longitude},         
-                }
-            )
+            navigation.navigate("Results");
         })
     }
 
@@ -44,15 +42,12 @@ const AddressInputScreen2 = ({ navigation, route }) => {
                     if (data.results[0]) {
                         const { lat, lng } = data.results[0].geometry.location;
 
-                        navigation.navigate(
-                            "Results", 
-                            { 
-                                addy1: 
-                                    { latitude: latitude1, longitude: longitude1},
-                                addy2: 
-                                    { latitude: lat, longitude: lng},         
-                            }
-                        )
+                        let obj = Object.assign({}, filter);
+                        obj['addy2'] = {latitude: lat, longitude: lng};
+                        setFilter(obj);
+
+
+                        navigation.navigate("Results");
                     } else {
                         setError('Not a Valid Address');
                     }
@@ -61,6 +56,7 @@ const AddressInputScreen2 = ({ navigation, route }) => {
             setError('Please Input Address');
         }
     }
+
 
 
     return (
@@ -73,7 +69,7 @@ const AddressInputScreen2 = ({ navigation, route }) => {
                         placeholder="Enter Second Address"
                     />
                     <ErrorMessage error={error} />
-                    { route.params.current &&
+                    { filter && filter.addy1.current &&
                         <View>
                             <AppText style={styles.text}>Or</AppText>
                             <AppButton

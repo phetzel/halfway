@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
-import WelcomeScreen from './app/screens/WelcomeScreen';
 import AddressInputScreen1 from './app/screens/AddressInputScreen1';
 import AddressInputScreen2 from './app/screens/AddressInputScreen2';
+import FilterContext from  './app/context/filter_context';
 import PlaceScreen from './app/screens/PlaceScreen';
 import ResultsScreen from './app/screens/ResultsScreen';
+import WelcomeScreen from './app/screens/WelcomeScreen';
 
 
 const Stack = createStackNavigator();
@@ -26,10 +27,14 @@ const StackNavigator = () => (
 )
 
 export default function App() {
+  const [ filter, setFilter ] = useState({});
+
   return (
-    <NavigationContainer>
-      <StackNavigator />
-    </NavigationContainer>
+    <FilterContext.Provider value={{ filter, setFilter }}>
+      <NavigationContainer>
+        <StackNavigator />
+      </NavigationContainer>
+    </FilterContext.Provider>
   );
 }
 

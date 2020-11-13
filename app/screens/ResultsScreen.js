@@ -1,17 +1,20 @@
-import React, { useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState} from 'react';
 import { FlatList, View, Image, StyleSheet } from 'react-native';
 
 import AppButton from '../components/AppButton';
 import Card from '../components/Card';
 import colors from '../config/colors';
+import FilterContext from '../context/filter_context';
 import key from '../key/key';
 import location from '../util/location';
 import Screen from '../components/Screen';
 
 const ResultsScreen = ({ navigation, route }) => {
+  const { filter, setFilter } = useContext(FilterContext);
   const [ results, setResults ] = useState();
 
-  const { addy1, addy2 } = route.params;
+  const { addy1, addy2 } = filter;
+
   const midpoint = location.midpoint(
     addy1.latitude,
     addy1.longitude,
