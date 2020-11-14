@@ -8,8 +8,7 @@ import colors from '../config/colors';
 import Screen from '../components/Screen';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-const PlaceScreen = ({ route }) => {
-    console.log(route.params);
+const PlaceScreen = ({ navigation, route }) => {
     const { image_url, location, categories, display_phone, price, rating, name } = route.params;
 
     let stars = [];
@@ -65,7 +64,8 @@ const PlaceScreen = ({ route }) => {
 
             <View style={styles.bottomButton}>
                 <AppButton
-                    // onPress={handleSubmit}
+                    color="secondary"
+                    onPress={() => navigation.navigate("Results")}
                     title="Back" 
                 />
             </View>

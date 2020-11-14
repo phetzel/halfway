@@ -88,7 +88,7 @@ const AddressInputScreen2 = ({ navigation, route }) => {
                     />
                     <AppButton
                         color="secondary"
-                        onPress={() => navigation.navigate("Welcome")}
+                        onPress={() => navigation.navigate("AddressInput1")}
                         title="Back" 
                     />
                 </View>

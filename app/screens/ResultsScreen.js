@@ -13,7 +13,7 @@ const ResultsScreen = ({ navigation, route }) => {
   const { filter, setFilter } = useContext(FilterContext);
   const [ results, setResults ] = useState();
 
-  const { addy1, addy2 } = filter;
+  const { addy1, addy2, price } = filter;
 
   const midpoint = location.midpoint(
     addy1.latitude,
@@ -27,7 +27,10 @@ const ResultsScreen = ({ navigation, route }) => {
     lng: midpoint[1]
   }
 
+
+
   const fetchFromYelp = async (params) => {
+    const priceStr = price.join(',');
     const limit = 3;
 
     const config = {
@@ -40,8 +43,12 @@ const ResultsScreen = ({ navigation, route }) => {
      + params.lat
      + `&longitude=`
      + params.lng
+     + `&price=`
+     + priceStr
      + `&limit=`
-     + limit;
+     + limit
+     + `&sort_by=`
+     + `distance`;
 
     fetch(url, config)
       .then(response => response.json())
@@ -50,7 +57,7 @@ const ResultsScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     fetchFromYelp(searchOptions);
-  }, []);
+  });
 
 
   return (
@@ -74,7 +81,7 @@ const ResultsScreen = ({ navigation, route }) => {
 
       <View style={styles.bottomButtons}>
         <AppButton
-            // onPress={handleSubmit}
+            onPress={() => navigation.navigate("Filter")}
             title="Filters" 
         />
         <AppButton
