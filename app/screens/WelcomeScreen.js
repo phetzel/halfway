@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 
 import AppText from '../components/AppText';
 import AppButton from '../components/AppButton';
 
-
 const WelcomeScreen = ({ navigation }) => {
+
     return (
         <ImageBackground
         blurRadius={10}

@@ -78,7 +78,11 @@ const styles = StyleSheet.create({
         fontSize: 30
     },
     bottomButton: {
+        bottom: 0,
         padding: 10,
+        paddingBottom: 50,
+        position: 'absolute',
+        width: '100%'
     },
     container: {
         justifyContent: 'space-between',

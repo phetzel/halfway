@@ -106,7 +106,9 @@ const styles = StyleSheet.create({
   },
   top: {
       alignItems: 'center'
-  }
+  },
+
+
 });
 
 export default AddressInputScreen1;

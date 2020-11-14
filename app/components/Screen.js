@@ -11,6 +11,7 @@ const Screen = ({ children }) => {
 };
 const styles = StyleSheet.create({
   screen: {
+      height: '100%',
       paddingTop: Constants.statusBarHeight
   },
 });

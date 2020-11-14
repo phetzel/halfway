@@ -7,6 +7,7 @@ import AddressInputScreen1 from './app/screens/AddressInputScreen1';
 import AddressInputScreen2 from './app/screens/AddressInputScreen2';
 import FilterContext from  './app/context/filter_context';
 import FilterScreen from './app/screens/FilterScreen';
+import defaultFilter from './app/context/default_filter';
 import PlaceScreen from './app/screens/PlaceScreen';
 import ResultsScreen from './app/screens/ResultsScreen';
 import WelcomeScreen from './app/screens/WelcomeScreen';
@@ -29,10 +30,7 @@ const StackNavigator = () => (
 )
 
 export default function App() {
-  const defaultFilter = {
-    price: ['1', '2', '3', '4']
-  };
-  
+
   const [ filter, setFilter ] = useState(defaultFilter);
 
   return (

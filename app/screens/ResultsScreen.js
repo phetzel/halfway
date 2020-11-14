@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState} from 'react';
 import { FlatList, View, Image, StyleSheet } from 'react-native';
 
+import ActivityIndicator from '../components/ActivityIndicator';
 import AppButton from '../components/AppButton';
 import Card from '../components/Card';
 import colors from '../config/colors';
@@ -8,10 +9,13 @@ import FilterContext from '../context/filter_context';
 import key from '../key/key';
 import location from '../util/location';
 import Screen from '../components/Screen';
+import NoResponse from '../components/NoResponse';
 
 const ResultsScreen = ({ navigation, route }) => {
   const { filter, setFilter } = useContext(FilterContext);
   const [ results, setResults ] = useState();
+  const [ loading, setLoading ] = useState(false);
+  const [ empty, setEmpty ] = useState(false);
 
   const { addy1, addy2, price } = filter;
 
@@ -27,11 +31,11 @@ const ResultsScreen = ({ navigation, route }) => {
     lng: midpoint[1]
   }
 
-
-
   const fetchFromYelp = async (params) => {
+    setLoading(true);
     const priceStr = price.join(',');
     const limit = 3;
+    const radius = '40000';
 
     const config = {
       headers: {
@@ -45,6 +49,8 @@ const ResultsScreen = ({ navigation, route }) => {
      + params.lng
      + `&price=`
      + priceStr
+     + `&radius=`
+     + radius
      + `&limit=`
      + limit
      + `&sort_by=`
@@ -52,21 +58,26 @@ const ResultsScreen = ({ navigation, route }) => {
 
     fetch(url, config)
       .then(response => response.json())
-      .then(data => setResults(data.businesses));
+      .then(data => setResults(data.businesses))
+      .then(() => setLoading(false));
   }
 
   useEffect(() => {
     fetchFromYelp(searchOptions);
-  });
+  }, [filter]);
 
+  const renderEmpty = () => <NoResponse />;
 
   return (
     <Screen style={styles.container}>
+      <ActivityIndicator visible={loading}   />
       { results &&
         <View style={styles.list}>
           <FlatList 
+            contentContainerStyle={{ flexGrow: 1 }}
             data={results}
             keyExtractor={results.id}
+            ListEmptyComponent={renderEmpty()}
             renderItem={({ item }) => (
               <Card
                 address={item.location.display_address}
@@ -77,7 +88,7 @@ const ResultsScreen = ({ navigation, route }) => {
             )}
           />
         </View>
-      }
+      } 
 
       <View style={styles.bottomButtons}>
         <AppButton
@@ -96,7 +107,8 @@ const ResultsScreen = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'space-between'
+    padding: 10,
+    height: '100%'
   },
   bottomButtons: {
     backgroundColor: colors.white,

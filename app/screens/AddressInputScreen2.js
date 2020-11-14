@@ -57,6 +57,7 @@ const AddressInputScreen2 = ({ navigation, route }) => {
         }
     }
 
+    console.log(filter);
 
 
     return (
