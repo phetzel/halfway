@@ -6,11 +6,10 @@ import AppButton from '../components/AppButton';
 import AppText from '../components/AppText';
 import colors from '../config/colors';
 import Screen from '../components/Screen';
+import { normalize } from '../util/dimensions';
 
 const PlaceScreen = ({ navigation, route }) => {
     const { image_url, location, categories, display_phone, price, rating, name } = route.params;
-
-
 
     let stars = [];
     while (stars.length < rating) {
@@ -80,8 +79,8 @@ const styles = StyleSheet.create({
     bottomButton: {
         backgroundColor: colors.white,
         bottom: 0,
-        padding: 10,
-        paddingBottom: 50,
+        padding: normalize(10),
+        paddingBottom: normalize(20),
         position: 'absolute',
         width: '100%'
     },
@@ -90,34 +89,34 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
     },
     detail: {
-        marginLeft: 20,
+        marginLeft: normalize(20),
     },
     detailsContainer: {
-        padding: 20,
-        paddingBottom: 200,
+        padding: normalize(20),
+        paddingBottom: normalize(200),
     },
     label: {
-        fontSize: 22,
+        fontSize: normalize(22),
         color: colors.third,
     },
     image: {
-        height: 300,
+        height: normalize(230),
         width: '100%'
     },
     name: {
-        fontSize: 30,
+        fontSize: normalize(23),
         fontWeight: "500",
     },
     price: {
         color: colors.green,
-        fontSize: 22,
+        fontSize: normalize(22),
         fontWeight: 'bold',
-        marginRight: 20
+        marginRight: normalize(20)
     },
     priceRating: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 10
+        padding: normalize(10)
   },
   starsContainer: {
     flexDirection: 'row',

@@ -4,12 +4,13 @@ import { useFocusEffect } from '@react-navigation/native';
 
 import AppText from '../components/AppText';
 import AppButton from '../components/AppButton';
+import colors from '../config/colors';
 import defaultFilter from '../context/default_filter';
+import { normalize } from '../util/dimensions';
 import FilterContext from '../context/filter_context';
 
 const WelcomeScreen = ({ navigation }) => {
     const { filter, setFilter } = useContext(FilterContext);
-    console.log(filter);
 
     useFocusEffect(() => {
         setFilter(defaultFilter);
@@ -41,26 +42,29 @@ const styles = StyleSheet.create({
   background: {
       alignItems: 'center',
       flex: 1,
-      justifyContent: 'flex-end'
+      justifyContent: 'flex-end',
+      height: '100%'
   },
   buttonContainer: {
-      marginBottom: 30,
-    padding: 20,
+    marginBottom: normalize(30),
+    padding: normalize(20),
     width: '100%',
   },
   logo: {
-      height: 200,
-      width: 200
+      height: normalize(125),
+      width: normalize(125)
   },
   logoContainer: {
       alignItems: 'center',
       position: 'absolute',
-      top: 110,
+      top: normalize(110),
   },
   tagline: {
-      fontSize: 25,
-      fontWeight: '600',
-      top: -30
+      color: colors.primary,
+      fontSize: normalize(20),
+      fontWeight: 'bold',
+      padding: normalize(15),
+      top: normalize(-30)
     }
 });
 

@@ -3,6 +3,7 @@ import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 import AppText from './AppText';
 import colors from '../config/colors';
+import { normalize } from '../util/dimensions';
 
 const Card = ({
     name,
@@ -17,16 +18,16 @@ const Card = ({
                 <Image style={styles.image} source={{ uri: image}} />
 
                 <View style={styles.detailsContainer}>
-                    <View style={styles.detailsLeft}>
-                        <AppText style={styles.name}>{name}</AppText>
-                        <AppText style={styles.price}>{price}</AppText>
+                    <View style={styles.detailsSub}>
+                        <AppText style={[styles.name, styles.text]}>{name}</AppText>
+                        <AppText style={[styles.price, styles.text]}>{price}</AppText>
                     </View>
 
-                    <View style={styles.detailsLeft}>
-                        <AppText style={[styles.address, styles.marginBottom]}>
+                    <View style={[styles.detailsSub, {alignItems: 'flex-end'}]}>
+                        <AppText style={[styles.address, styles.marginBottom, styles.text]}>
                             {address[0]}
                         </AppText>
-                        <AppText style={styles.address}>{address[1]}</AppText>
+                        <AppText style={[styles.address, styles.text]}>{address[1]}</AppText>
                     </View>
                 </View>
             </View>
@@ -36,31 +37,39 @@ const Card = ({
 };
 const styles = StyleSheet.create({
   card: {
-      borderRadius: 15,
+      borderRadius: normalize(15),
       backgroundColor: colors.white,
-      marginBottom: 20,
+      marginBottom: normalize(15),
       overflow: 'hidden',
   },
   image: {
-      height: 200,
+      height: normalize(150),
       width: '100%',
   },
 detailsContainer: {
     justifyContent: 'space-between',
     flexDirection: 'row',
-    padding: 20,
+    padding: normalize(20),
+  },
+  detailsSub: {
+    flex: 1,
+    overflow: 'hidden'
   },
   marginBottom: {
-    marginBottom: 7,
+    marginBottom: normalize(7),
   },
   name: {
       color: colors.primary,
       fontWeight: "bold",
-      marginBottom: 7,
+      marginBottom: normalize(7),
   },
   price: {
       color: colors.green
+  },
+  text: {
+      fontSize: normalize(17)
   }
+
 });
 
 export default Card;

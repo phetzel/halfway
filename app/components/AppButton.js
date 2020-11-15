@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import AppText from './AppText';
 import colors from '../config/colors';
+import { normalize } from '../util/dimensions';
 
 const AppButton = ({ title, onPress, color = "primary" }) => {
     return (
@@ -18,15 +19,15 @@ const AppButton = ({ title, onPress, color = "primary" }) => {
 const styles = StyleSheet.create({
   button: {
       alignItems: "center",
-      borderRadius: 25,
+      borderRadius: normalize(25),
       justifyContent: 'center',
-      marginVertical: 10,
-      padding: 15,
+      marginVertical: normalize(10),
+      padding: normalize(15),
       width: '100%'
   },
   text: {
     color: colors.white,
-    fontSize: 18,
+    fontSize: normalize(18),
     textTransform: 'uppercase',
     fontWeight: 'bold'
   }

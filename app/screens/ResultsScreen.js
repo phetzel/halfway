@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState} from 'react';
 import { FlatList, View, Image, StyleSheet } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 import ActivityIndicator from '../components/ActivityIndicator';
 import AppButton from '../components/AppButton';
@@ -8,6 +9,7 @@ import colors from '../config/colors';
 import FilterContext from '../context/filter_context';
 import key from '../key/key';
 import location from '../util/location';
+import { normalize } from '../util/dimensions';
 import Screen from '../components/Screen';
 import NoResponse from '../components/NoResponse';
 
@@ -15,8 +17,6 @@ const ResultsScreen = ({ navigation, route }) => {
   const { filter, setFilter } = useContext(FilterContext);
   const [ results, setResults ] = useState();
   const [ loading, setLoading ] = useState(false);
-
-  console.log(filter);
 
   const { addy1, addy2, category, open, price } = filter;
 
@@ -37,6 +37,8 @@ const ResultsScreen = ({ navigation, route }) => {
     const priceStr = price.join(',');
     const limit = 3;
     const radius = '40000';
+
+    console.log('hit');
 
     const config = {
       headers: {
@@ -113,19 +115,19 @@ const ResultsScreen = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: normalize(20),
     height: '100%'
   },
   bottomButtons: {
     backgroundColor: colors.white,
     bottom: 0,
-    padding: 10,
-    paddingBottom: 50,
+    padding: normalize(10),
+    paddingBottom: normalize(20),
     position: 'absolute',
     width: '100%'
   },
   list: {
-    paddingBottom: 180
+    paddingBottom: normalize(150)
   }
 });
 

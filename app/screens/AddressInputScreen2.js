@@ -7,6 +7,7 @@ import AppText from '../components/AppText';
 import AppTextInput from '../components/AppTextInput';
 import ErrorMessage from '../components/ErrorMessage';
 import FilterContext from '../context/filter_context';
+import { normalize } from '../util/dimensions';
 import key from '../key/key';
 import Screen from '../components/Screen';
 
@@ -99,14 +100,14 @@ const styles = StyleSheet.create({
   container: {
       justifyContent: 'space-between',
       height: '100%',
-      padding: 10,
-      paddingBottom: 50,
-      paddingTop: 200
+      padding: normalize(10),
+      paddingBottom: normalize(20),
+      paddingTop: normalize(50)
   },
     text: {
         alignSelf: 'center',
-        fontSize: 25,
-        margin: 20,
+        fontSize: normalize(20),
+        margin: normalize(20),
   },
 });
 

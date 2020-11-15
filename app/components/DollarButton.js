@@ -4,6 +4,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import AppText from './AppText';
 import colors from '../config/colors';
 import FilterContext from '../context/filter_context';
+import { normalize } from '../util/dimensions';
 
 const DollarButton = ({ id }) => {
     const { filter, setFilter } = useContext(FilterContext);
@@ -53,13 +54,13 @@ const DollarButton = ({ id }) => {
 const styles = StyleSheet.create({
   button: {
       flex: 1,
-      padding: 8,
+      padding: normalize(8),
       alignItems: 'center',
-      width: 70
+      width: normalize(70)
   },
   text: {
       color: colors.green,
-      fontSize: 20,
+      fontSize: normalize(20),
       fontWeight: 'bold',
   }
 });

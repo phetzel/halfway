@@ -8,6 +8,7 @@ import colors from '../config/colors';
 import DollarPicker from '../components/DollarPicker';
 import FilterContext from '../context/filter_context';
 import Screen from '../components/Screen';
+import { normalize } from '../util/dimensions';
 
 const FilterScreen = ({ navigation }) => {
     const { filter, setFilter } = useContext(FilterContext);
@@ -15,7 +16,6 @@ const FilterScreen = ({ navigation }) => {
     const [newCategory, setNewCategory] = useState(category);
     const [isOpen, setIsOpen] = useState(open);
 
-    console.log(filter);
 
     const handleSubmit = () => {
         let obj = Object.assign({}, filter);
@@ -64,22 +64,22 @@ const FilterScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     bottomButton: {
         bottom: 0,
-        padding: 10,
-        paddingBottom: 50,
+        padding: normalize(10),
+        paddingBottom: normalize(20),
         position: 'absolute',
         width: '100%'
     },
     details: {
         flex: .8,
         justifyContent: 'space-around',
-        padding: 20,
-        paddingBottom: 100
+        padding: normalize(20),
+        paddingBottom: normalize(100),
     },
     label: {
         color: colors.third,
-        fontSize: 25,
+        fontSize: normalize(25),
         fontWeight: 'bold',
-        paddingBottom: 10
+        paddingBottom: normalize(10)
     },
     switch: {
         alignSelf: 'center',

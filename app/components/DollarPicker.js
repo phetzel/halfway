@@ -1,13 +1,11 @@
 import React, { useContext } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 
-import AppText from './AppText';
 import colors from '../config/colors';
 import DollarButton from './DollarButton.js';
+import { normalize } from '../util/dimensions';
 
 const DollarPicker = (props) => {
-    // const { price } = filter;
-
     const priceArr = [{ id: '1' },{ id: '2' },{ id: '3' },{ id: '4' }];
 
     return (
@@ -29,11 +27,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     backgroundColor: colors.light,
-    borderRadius: 25,
+    borderRadius: normalize(25),
     flexDirection: 'row',
-    marginVertical: 10,
+    marginVertical: normalize(10),
     overflow: 'hidden',
-    width: 280
+    width: normalize(280)
   }
 });
 

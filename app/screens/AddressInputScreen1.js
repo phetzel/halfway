@@ -7,12 +7,12 @@ import AppText from '../components/AppText';
 import AppTextInput from '../components/AppTextInput';
 import ErrorMessage from '../components/ErrorMessage';
 import FilterContext from '../context/filter_context';
+import { normalize } from '../util/dimensions';
 import key from '../key/key';
 import Screen from '../components/Screen';
 
 const AddressInputScreen1 = ({ navigation }) => {
     const { filter, setFilter } = useContext(FilterContext);
-    console.log(filter);
 
     const [addy1, setAddy1] = useState();
     const [error, setError] = useState();
@@ -97,13 +97,13 @@ const styles = StyleSheet.create({
   container: {
       justifyContent: 'space-between',
       height: '100%',
-      padding: 10,
-      paddingBottom: 50,
-      paddingTop: 200
+      padding: normalize(10),
+      paddingBottom: normalize(20),
+      paddingTop: normalize(50)
   },
   text: {
-        fontSize: 25,
-        margin: 20,
+        fontSize: normalize(20),
+        margin: normalize(20),
   },
   top: {
       alignItems: 'center'
