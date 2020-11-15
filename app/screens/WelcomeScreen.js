@@ -1,10 +1,20 @@
 import React, { useContext, useEffect } from 'react';
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 import AppText from '../components/AppText';
 import AppButton from '../components/AppButton';
+import defaultFilter from '../context/default_filter';
+import FilterContext from '../context/filter_context';
 
 const WelcomeScreen = ({ navigation }) => {
+    const { filter, setFilter } = useContext(FilterContext);
+    console.log(filter);
+
+    useFocusEffect(() => {
+        setFilter(defaultFilter);
+    });
+
 
     return (
         <ImageBackground

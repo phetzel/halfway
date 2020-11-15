@@ -12,6 +12,7 @@ import Screen from '../components/Screen';
 
 const AddressInputScreen1 = ({ navigation }) => {
     const { filter, setFilter } = useContext(FilterContext);
+    console.log(filter);
 
     const [addy1, setAddy1] = useState();
     const [error, setError] = useState();

@@ -15,9 +15,10 @@ const ResultsScreen = ({ navigation, route }) => {
   const { filter, setFilter } = useContext(FilterContext);
   const [ results, setResults ] = useState();
   const [ loading, setLoading ] = useState(false);
-  const [ empty, setEmpty ] = useState(false);
 
-  const { addy1, addy2, price } = filter;
+  console.log(filter);
+
+  const { addy1, addy2, category, open, price } = filter;
 
   const midpoint = location.midpoint(
     addy1.latitude,
@@ -51,6 +52,10 @@ const ResultsScreen = ({ navigation, route }) => {
      + priceStr
      + `&radius=`
      + radius
+     + `&term=`
+     + category
+     + `&open_now=`
+     + open
      + `&limit=`
      + limit
      + `&sort_by=`
@@ -67,6 +72,7 @@ const ResultsScreen = ({ navigation, route }) => {
   }, [filter]);
 
   const renderEmpty = () => <NoResponse />;
+
 
   return (
     <Screen style={styles.container}>
