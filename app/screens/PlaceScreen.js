@@ -16,12 +16,13 @@ const PlaceScreen = ({ navigation, route }) => {
         stars.push('star');
     }
 
+    const photoSource = image_url ? { uri: image_url } : require('../assets/no-image-found.png');
 
     return (
         <Screen style={styles.container}>
             <ScrollView>
                 <Image 
-                    source={{ uri: image_url }}
+                    source={photoSource}
                     style={styles.image}
                 />
 
@@ -85,8 +86,8 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     container: {
-        justifyContent: 'space-between',
         alignItems: 'flex-end',
+        justifyContent: 'space-between',
     },
     detail: {
         marginLeft: normalize(20),

@@ -12,10 +12,12 @@ const Card = ({
     price,
     onPress
 }) => {
+    const photoSource = image ? { uri: image } : require('../assets/no-image-found.png');
+
     return (
         <TouchableOpacity onPress={onPress}>
             <View style={styles.card}>
-                <Image style={styles.image} source={{ uri: image}} />
+                <Image style={styles.image} source={photoSource} />
 
                 <View style={styles.detailsContainer}>
                     <View style={styles.detailsSub}>

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import AppText from './AppText';
+import { normalize } from '../util/dimensions';
 
 const NoResponse = (props) => {
     return (
@@ -19,11 +20,11 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       height: '100%',
       justifyContent: 'center',
-      paddingBottom: 150
+      paddingBottom: normalize(150)
   },
   text: {
-      fontSize: 20,
-      paddingBottom: 10
+      fontSize: normalize(20),
+      paddingBottom: normalize(10)
   }
 });
 

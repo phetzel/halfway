@@ -47,6 +47,8 @@ const AddressInputScreen1 = ({ navigation }) => {
                         obj['addy1'] = {latitude: lat, longitude: lng, current: true};
                         setFilter(obj);
 
+                        setError();
+
                         navigation.navigate("AddressInput2");
                     } else {
                         setError('Not a Valid Address');

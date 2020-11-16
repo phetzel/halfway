@@ -16,6 +16,7 @@ import NoResponse from '../components/NoResponse';
 const ResultsScreen = ({ navigation, route }) => {
   const { filter, setFilter } = useContext(FilterContext);
   const [ results, setResults ] = useState();
+  const [ empty, setEmpty ] = useState(false);
   const [ loading, setLoading ] = useState(false);
 
   const { addy1, addy2, category, open, price } = filter;
@@ -35,57 +36,63 @@ const ResultsScreen = ({ navigation, route }) => {
   const fetchFromYelp = async (params) => {
     setLoading(true);
     const priceStr = price.join(',');
-    const limit = 3;
+    const limit = 5;
     const radius = '40000';
 
-    console.log('hit');
+    if (priceStr) {
+      const config = {
+        headers: {
+          'Authorization': `Bearer ` + key.yelpApi,
+        }
+      };
+  
+      const url = `https://api.yelp.com/v3/businesses/search?latitude=`
+       + params.lat
+       + `&longitude=`
+       + params.lng
+       + `&price=`
+       + priceStr
+       + `&radius=`
+       + radius
+       + `&term=`
+       + category
+       + `&open_now=`
+       + open
+       + `&limit=`
+       + limit
+       + `&sort_by=`
+       + `distance`;
+  
+      fetch(url, config)
+        .then(response => response.json())
+        .then(data => {
+          const res = data.businesses;
+          res && res.length > 0 ? setEmpty(false) : setEmpty(true);
+          setResults(res);
+        })
+        .then(() => setLoading(false));
+    } else {
+      setEmpty(true);
+      setLoading(false)
+      setResults();
+    }
 
-    const config = {
-      headers: {
-        'Authorization': `Bearer ` + key.yelpApi,
-      }
-    };
-
-    const url = `https://api.yelp.com/v3/businesses/search?latitude=`
-     + params.lat
-     + `&longitude=`
-     + params.lng
-     + `&price=`
-     + priceStr
-     + `&radius=`
-     + radius
-     + `&term=`
-     + category
-     + `&open_now=`
-     + open
-     + `&limit=`
-     + limit
-     + `&sort_by=`
-     + `distance`;
-
-    fetch(url, config)
-      .then(response => response.json())
-      .then(data => setResults(data.businesses))
-      .then(() => setLoading(false));
   }
 
   useEffect(() => {
     fetchFromYelp(searchOptions);
   }, [filter]);
 
-  const renderEmpty = () => <NoResponse />;
-
-
+  console.log(results);
   return (
     <Screen style={styles.container}>
       <ActivityIndicator visible={loading}   />
-      { results &&
+      { results && results.length > 0 &&
         <View style={styles.list}>
           <FlatList 
             contentContainerStyle={{ flexGrow: 1 }}
             data={results}
             keyExtractor={results.id}
-            ListEmptyComponent={renderEmpty()}
             renderItem={({ item }) => (
               <Card
                 address={item.location.display_address}
@@ -97,6 +104,8 @@ const ResultsScreen = ({ navigation, route }) => {
           />
         </View>
       } 
+
+      { empty && <NoResponse />}
 
       <View style={styles.bottomButtons}>
         <AppButton
