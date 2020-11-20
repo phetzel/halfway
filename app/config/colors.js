@@ -7,5 +7,6 @@ export default {
     light: '#f8f4f4', //input background
     black: '#000',
     white: '#fff',
-    background: '#ffdaB9'
+    background: '#ffdaB9',
+    orange: '#fcb14f'
 }

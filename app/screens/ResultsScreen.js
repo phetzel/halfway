@@ -83,7 +83,6 @@ const ResultsScreen = ({ navigation, route }) => {
     fetchFromYelp(searchOptions);
   }, [filter]);
 
-  console.log(results);
   return (
     <Screen style={styles.container}>
       <ActivityIndicator visible={loading}   />

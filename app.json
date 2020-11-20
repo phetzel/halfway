@@ -2,13 +2,14 @@
   "expo": {
     "name": "halfway",
     "slug": "halfway",
-    "version": "1.0.0",
+    "privacy": "public",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
     "splash": {
       "image": "./app/assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#fcb14f"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -19,7 +20,13 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.phetzel.halfway",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.3",
+      "infoPlist": {
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Halfway would like to access location information in order to calculate halfway point",
+        "NSLocationWhenInUseUsageDescription": "Halfway would like to access location information in order to calculate halfway point",
+        "NSLocationAlwaysUsageDescription": "Halfway would like to access location information in order to calculate halfway point",
+        "NSLocationUsageDescription": "Halfway would like to access location information in order to calculate halfway point"
+      }
     },
     "android": {
       "adaptiveIcon": {
